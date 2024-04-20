@@ -1,0 +1,17 @@
+.list {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list > li {
+  padding: 0 1rem;
+}
+
+.list > li:hover {
+  transform: scale(1.15);
+  text-decoration: underline;
+  transition: all 0.2s cubic-bezier(0.95, 0.05, 0.795, 0.035);
+}

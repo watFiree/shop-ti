@@ -1,0 +1,67 @@
+// datasource db {
+//   provider = "mysql"
+//   url      = env("DATABASE_URL")
+// }
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./myshop.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  password String
+  name     String?
+  orders   Order[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  categoryId  Int
+  category    Category  @relation(fields: [categoryId], references: [id])
+  OrderItem   OrderItem[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
+}
+
+model Order {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  items     OrderItem[]
+  deliveryAddress DeliveryAddress?
+}
+
+model DeliveryAddress {
+  id            Int     @id @default(autoincrement())
+  orderId       Int     @unique
+  order         Order   @relation(fields: [orderId], references: [id])
+  addressLine   String
+  city          String
+  postalCode    String
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+

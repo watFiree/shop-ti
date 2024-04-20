@@ -5,9 +5,9 @@
     "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
     "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
 
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: #f8f9fa;
+  --background-rgb: #767b91;
+  --border: #2a324b;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -86,13 +86,8 @@ body {
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: var(--foreground-rgb);
+  background: var(--background-rgb);
 }
 
 a {

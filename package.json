@@ -6,15 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prisma-generate": "cd ./src/app/lib/prisma && prisma generate",
+    "prisma-migrate": "cd ./src/app/lib/prisma && prisma migrate dev --name init"
   },
   "dependencies": {
+    "@prisma/client": "^5.12.1",
+    "next": "14.2.1",
+    "prisma": "^5.12.1",
     "react": "^18",
-    "react-dom": "^18",
-    "next": "14.2.1"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.2.1"
+  },
+  "prisma": {
+    "seed": "node ./src/app/lib/prisma/prisma.js"
   }
 }
