@@ -14,7 +14,7 @@ export const Navigation = async () => {
       <ul className={styles.list}>
         {categories.data.map(({ id, name }) => (
           <li key={id}>
-            <Link href={`/c/${name.toLowerCase()}`}>{name}</Link>
+            <Link href={`/c/${id}`}>{name}</Link>
           </li>
         ))}
       </ul>

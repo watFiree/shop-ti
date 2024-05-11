@@ -1,0 +1,40 @@
+.productCard {
+  max-width: 256px;
+  display: flex;
+  flex-direction: column;
+}
+
+.productCard > h2 {
+  font-size: 21px;
+  line-height: 24px;
+  margin: 6px 6px 2px;
+  font-weight: 300;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 6px;
+}
+
+.footer > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border: none;
+  border-radius: 16px;
+  background-color: #028902;
+  transition: all 0.2s ease;
+}
+
+.footer > button:hover {
+  background-color: #017401;
+  cursor: pointer;
+}
+
+.footer > p {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
