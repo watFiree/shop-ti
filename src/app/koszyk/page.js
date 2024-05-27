@@ -4,6 +4,9 @@ export const Page = () => {
   return (
     <div>
       <h1>Koszyk</h1>
+      <div>
+        
+      </div>
     </div>
   );
 };
