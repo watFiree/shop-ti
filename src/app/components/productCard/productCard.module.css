@@ -34,6 +34,11 @@
   cursor: pointer;
 }
 
+.footer > button:disabled {
+  background-color: #2b392b;
+  cursor: pointer;
+}
+
 .footer > p {
   font-weight: 500;
   letter-spacing: 0.5px;
