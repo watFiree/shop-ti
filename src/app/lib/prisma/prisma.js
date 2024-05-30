@@ -35,6 +35,41 @@ export const prisma = new PrismaClient();
 //   console.log(`Seeding finished.`);
 // }
 
+// async function main() {
+//   const couriers = [
+//     { name: "Przelewy24", price: 3.99 },
+//     { name: "Karta płatnicza", price: 1.99 },
+//     { name: "Przelew tradycyjny", price: 0 },
+//     { name: "Przy odbiorze", price: 0 },
+//   ];
+
+//   try {
+//     for (let courier of couriers) {
+//       const addedCourier = await prisma.paymentMethodType.create({
+//         data: {
+//           name: courier.name,
+//           price: courier.price,
+//         },
+//       });
+//       console.log(
+//         `Added Courier: ${addedCourier.name} with price ${addedCourier.price}`
+//       );
+//     }
+//   } catch (error) {
+//     console.error("Error adding couriers:", error);
+//   }
+// }
+
+// async function main() {
+//   await prisma.courierType.deleteMany({
+//     where: {
+//       id: {
+//         gte: 18,
+//       },
+//     },
+//   });
+// }
+
 // main()
 //   .then(async () => {
 //     await prisma.$disconnect();
@@ -43,4 +78,4 @@ export const prisma = new PrismaClient();
 //     console.error(e);
 //     await prisma.$disconnect();
 //     process.exit(1);
-// });
+//   });

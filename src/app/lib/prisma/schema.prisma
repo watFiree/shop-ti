@@ -28,6 +28,20 @@ model Category {
   products Product[]
 }
 
+model CourierType {
+  id    Int    @id @default(autoincrement())
+  name  String
+  price Float
+  orders Order[]
+}
+
+model PaymentMethodType {
+  id    Int    @id @default(autoincrement())
+  name  String
+  price Float
+  orders Order[]
+}
+
 model Order {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
@@ -35,6 +49,10 @@ model Order {
   items     OrderItem[]
   status String
   deliveryAddress DeliveryAddress?
+  courierTypeId  Int?
+  courierType  CourierType? @relation(fields: [courierTypeId], references: [id])
+  paymentTypeId  Int?
+  paymentType  PaymentMethodType? @relation(fields: [paymentTypeId], references: [id])
 }
 
 model DeliveryAddress {

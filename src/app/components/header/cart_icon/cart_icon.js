@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { pathname } from "@/app/koszyk/page";
 
 export const CartIcon = () => {
   return (
-    <Link href={pathname}>
+    <Link href="/koszyk">
       <Image
         src="/cart.svg"
         alt="Koszyk"
