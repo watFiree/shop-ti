@@ -1,8 +1,8 @@
 import { cookies } from "next/headers";
 import { Button } from "@nextui-org/button";
-import { Chip } from "@nextui-org/chip";
-import { formatPrice } from "@/app/lib/formatPrice";
+import { Link } from "@nextui-org/link";
 import { DeliveryForm } from "@/app/components/deliveryForm/deliveryForm";
+import { PlaceOrderButton } from "@/app/components/placeOrderButton/placeOrderButton";
 import { CourierRadioForm } from "@/app/components/courierForm/courierForm";
 import { PaymentRadioForm } from "@/app/components/paymentForm/paymentForm";
 import { OrderProductsList } from "@/app/components/orderProductsList/orderProductsList";
@@ -19,8 +19,13 @@ const getPayments = async () => {
 };
 
 const getBasketData = async (basketId) => {
-  const response = await fetch(`http://localhost:3000/api/order/${basketId}`);
-  return response.json();
+  try {
+    const response = await fetch(`http://localhost:3000/api/order/${basketId}`);
+    return await response.json();
+  } catch (error) {
+    console.log(error);
+    return { data: {} };
+  }
 };
 
 const CheckoutPage = async () => {
@@ -40,7 +45,21 @@ const CheckoutPage = async () => {
 
   return (
     <div className={styles.container}>
-      <h2 className="text-3xl">Zrealizuje swoje zamównienie</h2>
+      <div className="flex row justify-between">
+        <h2 className="text-3xl">Zrealizuje swoje zamównienie</h2>
+
+        <Button
+          href="/"
+          as={Link}
+          color="default"
+          size="md"
+          variant="light"
+          startContent={<p>{"<"}</p>}
+          className="text-foreground-500 w-min"
+        >
+          Wróć do zakupów
+        </Button>
+      </div>
       <OrderProductsList products={basket.products} />
       <CourierRadioForm basketId={basketId.value} couriers={couriers} />
       <DeliveryForm />
@@ -48,19 +67,7 @@ const CheckoutPage = async () => {
         basketId={basketId.value}
         paymentMethods={paymentMethods}
       />
-
-      <Button
-        color="success"
-        variant="shadow"
-        size="lg"
-        endContent={
-          <Chip variant="shadow">
-            Do zapłaty: {formatPrice(basket.totalPrice)}
-          </Chip>
-        }
-      >
-        Złóż zamówienie
-      </Button>
+      <PlaceOrderButton orderId={basketId.value} price={basket.totalPrice} />
     </div>
   );
 };

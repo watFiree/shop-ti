@@ -19,7 +19,7 @@ export const OrderProductsList = ({ products }) => {
               height="64px"
               alt={product.productName}
               className="object-cover"
-              src={`/productImage_${product.productBasketId}.webp`}
+              src={`/productImage_${product.productId}.webp`}
             />
           </CardBody>
           <CardFooter className="flex flex-col justify-between py-2 px-3">
