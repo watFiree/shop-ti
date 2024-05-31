@@ -53,6 +53,24 @@ const getBasketData = async (basketId) => {
   }
 };
 
+const Heading = ({ text }) => (
+  <div className="flex row justify-between">
+    <h2 className="text-3xl">{text}</h2>
+
+    <Button
+      href="/"
+      as={Link}
+      color="default"
+      size="md"
+      variant="light"
+      startContent={<p>{"<"}</p>}
+      className="text-foreground-500 w-min"
+    >
+      Wróć do zakupów
+    </Button>
+  </div>
+);
+
 const CheckoutPage = async () => {
   const cookiesStore = cookies();
   const basketId = cookiesStore.get("basketId");
@@ -62,29 +80,15 @@ const CheckoutPage = async () => {
 
   if (!basket?.products?.length) {
     return (
-      <div>
-        <h1>koszyk jest pusty</h1>
+      <div className={styles.container}>
+        <Heading text="Koszyk jest pusty" />
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      <div className="flex row justify-between">
-        <h2 className="text-3xl">Zrealizuje swoje zamównienie</h2>
-
-        <Button
-          href="/"
-          as={Link}
-          color="default"
-          size="md"
-          variant="light"
-          startContent={<p>{"<"}</p>}
-          className="text-foreground-500 w-min"
-        >
-          Wróć do zakupów
-        </Button>
-      </div>
+      <Heading text="Zrealizuje swoje zamównienie" />
       <OrderProductsList products={basket.products} />
       <CourierRadioForm basketId={basketId.value} couriers={couriers} />
       <DeliveryForm />
