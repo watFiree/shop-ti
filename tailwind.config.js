@@ -5,7 +5,7 @@ const { nextui } = require("@nextui-org/theme");
 module.exports = {
   content: [
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|chip|dropdown|input|link|modal|radio|ripple|spinner|menu|divider|popover).js"
+    "./node_modules/@nextui-org/theme/dist/components/(button|chip|dropdown|input|link|navbar|modal|radio|ripple|spinner|menu|divider|popover).js"
   ],
   theme: {
     extend: {},
