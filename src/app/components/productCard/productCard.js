@@ -29,8 +29,11 @@ export const ProductCard = ({ productId, productName, imageUrl, price }) => {
     setIsLoading(true);
     const basketId = Cookie.get("basketId");
     try {
-      const response = await fetch("http://localhost:3000/api/order", {
-        method: basketId ? "PUT" : "POST",
+      const endpoint = basketId
+        ? `http://localhost:3000/api/order/${basketId}/products`
+        : "http://localhost:3000/api/order";
+      const response = await fetch(endpoint, {
+        method: "POST",
         body: JSON.stringify({ productId }),
       });
 
