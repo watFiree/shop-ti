@@ -1,7 +1,6 @@
 import { Roboto_Slab } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Header } from "./components/header/header";
 
 const inter = Roboto_Slab({ subsets: ["latin"] });
 
@@ -14,10 +13,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className="dark">
       <body className={inter.className}>
-        <Providers>
-          <Header />
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

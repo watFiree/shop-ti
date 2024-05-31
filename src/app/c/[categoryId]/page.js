@@ -1,3 +1,4 @@
+import { Header } from "@/app/components/header/header";
 import { Listing } from "@/app/components/listing/listing";
 
 const getProductsForCategory = async (categoryId) => {
@@ -20,6 +21,7 @@ const CategoryPage = async ({ params }) => {
 
   return (
     <div>
+      <Header />
       <Listing name={category.data.name} products={products.data} />
     </div>
   );
