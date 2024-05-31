@@ -16,6 +16,7 @@
     "@nextui-org/dropdown": "^2.1.24",
     "@nextui-org/input": "^2.2.0",
     "@nextui-org/link": "^2.0.30",
+    "@nextui-org/navbar": "^2.0.32",
     "@nextui-org/radio": "^2.1.0",
     "@nextui-org/react": "^2.4.0",
     "@nextui-org/system": "^2.2.0",

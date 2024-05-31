@@ -1,18 +1,23 @@
 import { Suspense } from "react";
-
+import { Navbar, NavbarBrand, NavbarContent } from "@nextui-org/react";
 import { Logo } from "./logo/logo";
 import { CartIcon } from "./cart_icon/cart_icon";
-import styles from "./header.module.css";
 import { Navigation } from "./navigation/navigation";
 
 export const Header = () => {
   return (
-    <header className={styles.header}>
-      <Logo />
-      <Suspense fallback={<h1>loading</h1>}>
-        <Navigation />
-      </Suspense>
-      <CartIcon />
-    </header>
+    <Navbar shouldHideOnScroll className="bg-stone-900	">
+      <NavbarBrand>
+        <Logo />
+      </NavbarBrand>
+      <NavbarContent justify="center">
+        <Suspense fallback={<h1>loading</h1>}>
+          <Navigation />
+        </Suspense>
+      </NavbarContent>
+      <NavbarContent justify="end">
+        <CartIcon />
+      </NavbarContent>
+    </Navbar>
   );
 };
