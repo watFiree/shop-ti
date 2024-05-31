@@ -4,10 +4,17 @@ import { Link } from "@nextui-org/link";
 import { OrderProductsList } from "@/app/components/orderProductsList/orderProductsList";
 import { formatPrice } from "@/app/lib/formatPrice";
 import styles from "./summary.module.css";
+import { redirect } from "next/navigation";
 
 const getOrderSummary = async (orderId) => {
   const response = await fetch(`http://localhost:3000/api/order/${orderId}`);
-  return response.json();
+
+  if (!response.ok) {
+    redirect("/");
+  }
+  const data = await response.json();
+
+  return data;
 };
 
 const OrderSummary = async ({ params }) => {

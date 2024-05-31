@@ -1,8 +1,9 @@
 "use client";
+import { toast } from "react-toastify";
 import { formatPrice } from "@/app/lib/formatPrice";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 
-export const CourierRadioForm = ({ basketId, couriers }) => {
+export const CourierRadioForm = ({ basketId, selectedId, couriers }) => {
   const updateOrderCourier = async (value) => {
     try {
       const response = await fetch(`./api/order/${basketId}/courier`, {
@@ -10,13 +11,20 @@ export const CourierRadioForm = ({ basketId, couriers }) => {
         body: JSON.stringify({ courierId: value }),
       });
 
-      await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
     } catch (error) {
-      console.log(error, "error set coureir");
+      toast.error(error.message);
     }
   };
   return (
-    <RadioGroup label="Kurierzy" onValueChange={updateOrderCourier}>
+    <RadioGroup
+      label="Kurierzy"
+      defaultValue={selectedId}
+      onValueChange={updateOrderCourier}
+    >
       {couriers.map(({ id, name, price }) => (
         <Radio key={id} value={id} description={formatPrice(price)}>
           {name}

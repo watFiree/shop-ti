@@ -2,17 +2,35 @@ import { Header } from "@/app/components/header/header";
 import { Listing } from "@/app/components/listing/listing";
 
 const getProductsForCategory = async (categoryId) => {
-  const response = await fetch(
-    `http://localhost:3000/api/products/${categoryId}`
-  );
-  return response.json();
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/products/${categoryId}`
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
+    return { data: [] };
+  }
 };
 
 const getCategoryInfo = async (categoryId) => {
-  const response = await fetch(
-    `http://localhost:3000/api/category/${categoryId}`
-  );
-  return response.json();
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/category/${categoryId}`
+    );
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
+    return { data: {} };
+  }
 };
 
 const CategoryPage = async ({ params }) => {

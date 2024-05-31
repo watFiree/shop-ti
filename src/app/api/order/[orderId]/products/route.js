@@ -1,32 +1,53 @@
+import { cookies } from "next/headers";
 import { prisma } from "@/app/lib/prisma/prisma";
 
-export async function GET(_req, { params }) {
-  const basketId = Number(params.orderId);
+export async function POST(req) {
+  try {
+    const { productId } = await req.json();
 
-  if (!basketId) {
-    return Response.json({ data: { products: [], totalPrice: 0 } });
-  }
+    const cookiesStore = cookies();
+    const basketId = cookiesStore.get("basketId");
 
-  const orderWithProducts = await prisma.order.findUnique({
-    where: { id: Number(basketId) },
-    include: {
-      items: {
-        include: {
-          product: true,
+    const result = await prisma.$transaction(async (transaction) => {
+      const existingItem = await transaction.orderItem.findFirst({
+        where: {
+          orderId: Number(basketId.value),
+          productId: productId,
         },
-      },
-    },
-  });
+      });
 
-  const products = orderWithProducts.items.map((item) => ({
-    productBasketId: item.id,
-    productId: item.productId,
-    productName: item.product.name,
-    productPrice: item.product.price,
-  }));
+      if (existingItem) {
+        return await transaction.orderItem.update({
+          where: {
+            id: existingItem.id,
+          },
+          data: {
+            quantity: {
+              increment: 1,
+            },
+          },
+        });
+      } else {
+        const product = await transaction.product.findUnique({
+          where: {
+            id: productId,
+          },
+        });
 
-  const totalPrice = products.reduce((acc, cur) => acc + cur.productPrice, 0);
-  const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
+        return await transaction.orderItem.create({
+          data: {
+            orderId: Number(basketId.value),
+            productId: productId,
+            quantity: 1,
+            price: product.price,
+          },
+        });
+      }
+    });
 
-  return Response.json({ data: { products, totalPrice: roundedTotalPrice } });
+    return Response.json({ data: result });
+  } catch (error) {
+    console.log(error);
+    return new Response(JSON.stringify({ error: "Bład serwera" }), 500);
+  }
 }

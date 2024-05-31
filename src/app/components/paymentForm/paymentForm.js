@@ -1,8 +1,9 @@
 "use client";
 import { formatPrice } from "@/app/lib/formatPrice";
+import { toast } from "react-toastify";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 
-export const PaymentRadioForm = ({ basketId, paymentMethods }) => {
+export const PaymentRadioForm = ({ basketId, selectedId, paymentMethods }) => {
   const updateOrderPaymentMethod = async (value) => {
     try {
       const response = await fetch(`./api/order/${basketId}/payment`, {
@@ -10,14 +11,18 @@ export const PaymentRadioForm = ({ basketId, paymentMethods }) => {
         body: JSON.stringify({ paymentMethodId: value }),
       });
 
-      await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
     } catch (error) {
-      console.log("error");
+      toast.error(error.message);
     }
   };
   return (
     <RadioGroup
       label="Metody płatności"
+      defaultValue={selectedId}
       onValueChange={updateOrderPaymentMethod}
     >
       {paymentMethods.map(({ id, name, price }) => (
