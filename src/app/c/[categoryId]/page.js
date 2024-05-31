@@ -4,7 +4,7 @@ import { Listing } from "@/app/components/listing/listing";
 const getProductsForCategory = async (categoryId) => {
   try {
     const response = await fetch(
-      `http://localhost:3000/api/products/${categoryId}`
+      `http://localhost:3000/api/category/${categoryId}/products`
     );
     const data = await response.json();
     if (!response.ok) {
