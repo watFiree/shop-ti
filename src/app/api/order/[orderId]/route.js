@@ -40,7 +40,15 @@ export async function GET(_req, { params }) {
   totalPrice += wholeOrder.courierType?.price || 0;
   totalPrice += wholeOrder.paymentType?.price || 0;
 
-  return Response.json({ data: { ...wholeOrder, products, totalPrice } });
+  const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
+
+  return Response.json({
+    data: {
+      ...wholeOrder,
+      products,
+      totalPrice: roundedTotalPrice,
+    },
+  });
 }
 
 export async function PUT(req, { params }) {

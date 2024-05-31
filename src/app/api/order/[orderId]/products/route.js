@@ -26,6 +26,7 @@ export async function GET(_req, { params }) {
   }));
 
   const totalPrice = products.reduce((acc, cur) => acc + cur.productPrice, 0);
+  const roundedTotalPrice = Math.round(totalPrice * 100) / 100;
 
-  return Response.json({ data: { products, totalPrice } });
+  return Response.json({ data: { products, totalPrice: roundedTotalPrice } });
 }
