@@ -77,7 +77,7 @@ const CheckoutPage = async () => {
   const { data: couriers } = await getCouriers();
   const { data: paymentMethods } = await getPayments();
   const { data: basket } = await getBasketData(basketId?.value || "");
-  console.log(basket);
+
   if (!basket?.products?.length) {
     return (
       <div className={styles.container}>
