@@ -77,7 +77,7 @@ const CheckoutPage = async () => {
   const { data: couriers } = await getCouriers();
   const { data: paymentMethods } = await getPayments();
   const { data: basket } = await getBasketData(basketId?.value || "");
-
+  console.log(basket);
   if (!basket?.products?.length) {
     return (
       <div className={styles.container}>
@@ -90,9 +90,14 @@ const CheckoutPage = async () => {
     <div className={styles.container}>
       <Heading text="Zrealizuje swoje zamównienie" />
       <OrderProductsList products={basket.products} />
-      <CourierRadioForm basketId={basketId.value} couriers={couriers} />
+      <CourierRadioForm
+        basketId={basketId.value}
+        selectedId={basket.courierTypeId}
+        couriers={couriers}
+      />
       <DeliveryForm />
       <PaymentRadioForm
+        selectedId={basket.paymentTypeId}
         basketId={basketId.value}
         paymentMethods={paymentMethods}
       />

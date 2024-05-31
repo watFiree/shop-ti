@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { formatPrice } from "@/app/lib/formatPrice";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 
-export const CourierRadioForm = ({ basketId, couriers }) => {
+export const CourierRadioForm = ({ basketId, selectedId, couriers }) => {
   const updateOrderCourier = async (value) => {
     try {
       const response = await fetch(`./api/order/${basketId}/courier`, {
@@ -20,7 +20,11 @@ export const CourierRadioForm = ({ basketId, couriers }) => {
     }
   };
   return (
-    <RadioGroup label="Kurierzy" onValueChange={updateOrderCourier}>
+    <RadioGroup
+      label="Kurierzy"
+      defaultValue={selectedId}
+      onValueChange={updateOrderCourier}
+    >
       {couriers.map(({ id, name, price }) => (
         <Radio key={id} value={id} description={formatPrice(price)}>
           {name}
