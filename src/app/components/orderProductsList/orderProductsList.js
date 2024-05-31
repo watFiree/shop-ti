@@ -1,5 +1,7 @@
+"use client";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import { formatPrice } from "@/app/lib/formatPrice";
+import { ProductImage } from "../productCard/productImage";
 
 export const OrderProductsList = ({ products }) => {
   return (
@@ -11,14 +13,11 @@ export const OrderProductsList = ({ products }) => {
           shadow="sm"
           className="flex-row	max-w-80"
         >
-          <CardBody className="w-auto p-0">
-            <Image
-              shadow="sm"
-              radius="lg"
-              width="64px"
-              height="64px"
+          <CardBody className="max-w-16 min-w-16 min-h-16 p-0">
+            <ProductImage
+              width={64}
+              height={64}
               alt={product.productName}
-              className="object-cover"
               src={`/productImage_${product.productId}.webp`}
             />
           </CardBody>
