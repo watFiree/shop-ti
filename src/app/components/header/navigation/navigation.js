@@ -2,8 +2,17 @@ import Link from "next/link";
 import styles from "./navigation.module.css";
 
 const getAllCategories = async () => {
-  const response = await fetch("http://localhost:3000/api/categories");
-  return response.json();
+  try {
+    const response = await fetch("http://localhost:3000/api/categories");
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
+    return { data: [] };
+  }
 };
 
 export const Navigation = async () => {

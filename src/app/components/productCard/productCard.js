@@ -2,6 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Cookie from "js-cookie";
+import { toast } from "react-toastify";
 import { formatPrice } from "@/app/lib/formatPrice";
 import {
   Modal,
@@ -19,7 +20,6 @@ import { Link } from "@nextui-org/link";
 
 export const ProductCard = ({ productId, productName, imageUrl, price }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isError, setError] = useState("");
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const handleAddToBasket = async (e) => {
@@ -27,7 +27,6 @@ export const ProductCard = ({ productId, productName, imageUrl, price }) => {
     e.preventDefault();
 
     setIsLoading(true);
-    setError("");
     const basketId = Cookie.get("basketId");
     try {
       const response = await fetch("http://localhost:3000/api/order", {
@@ -35,16 +34,14 @@ export const ProductCard = ({ productId, productName, imageUrl, price }) => {
         body: JSON.stringify({ productId }),
       });
 
-      console.log(response);
+      const data = response.json();
 
       if (!response.ok) {
-        throw new Error("Failed to submit the data. Please try again.");
+        throw new Error(data.error);
       }
       onOpen();
-      setError("");
     } catch (error) {
-      console.log(error);
-      setError(error);
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }

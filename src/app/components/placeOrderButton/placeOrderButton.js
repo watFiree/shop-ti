@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@nextui-org/button";
 import { Chip } from "@nextui-org/chip";
+import { toast } from "react-toastify";
 import { formatPrice } from "@/app/lib/formatPrice";
 
 export const PlaceOrderButton = ({ price, orderId }) => {
@@ -21,7 +22,6 @@ export const PlaceOrderButton = ({ price, orderId }) => {
         body: JSON.stringify({ deliveryAddressData }),
       });
 
-      console.log(response.ok);
       const data = await response.json();
       if (!response.ok) {
         throw new Error(data.error);
@@ -29,7 +29,7 @@ export const PlaceOrderButton = ({ price, orderId }) => {
 
       router.push(`/podsumowanie/${orderId}`);
     } catch (error) {
-      console.log(error.message);
+      toast.error(error.message);
     }
   };
 

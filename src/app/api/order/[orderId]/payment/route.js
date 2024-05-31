@@ -17,7 +17,6 @@ export async function POST(req, { params }) {
       },
     });
 
-    console.log(updatedOrder);
     revalidatePath("/koszyk", "page");
     return Response.json({
       revalidated: true,
@@ -25,7 +24,6 @@ export async function POST(req, { params }) {
       data: updatedOrder,
     });
   } catch (error) {
-    console.log(error);
-    return Response.error({ data: updatedOrder });
+    return new Response(JSON.stringify({ error: "Bład serwera" }), 500);
   }
 }

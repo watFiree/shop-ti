@@ -1,4 +1,5 @@
 "use client";
+import { toast } from "react-toastify";
 import { formatPrice } from "@/app/lib/formatPrice";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 
@@ -10,9 +11,12 @@ export const CourierRadioForm = ({ basketId, couriers }) => {
         body: JSON.stringify({ courierId: value }),
       });
 
-      await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
     } catch (error) {
-      console.log(error, "error set coureir");
+      toast.error(error.message);
     }
   };
   return (

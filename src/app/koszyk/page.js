@@ -9,21 +9,46 @@ import { OrderProductsList } from "@/app/components/orderProductsList/orderProdu
 import styles from "./basket.module.css";
 
 const getCouriers = async () => {
-  const response = await fetch(`http://localhost:3000/api/couriers`);
-  return response.json();
+  try {
+    const response = await fetch(`http://localhost:3000/api/couriers`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
+    return { data: {} };
+  }
 };
 
 const getPayments = async () => {
-  const response = await fetch(`http://localhost:3000/api/payments`);
-  return response.json();
+  try {
+    const response = await fetch(`http://localhost:3000/api/payments`);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
+    return { data: {} };
+  }
 };
 
 const getBasketData = async (basketId) => {
   try {
     const response = await fetch(`http://localhost:3000/api/order/${basketId}`);
-    return await response.json();
-  } catch (error) {
-    console.log(error);
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error);
+    }
+
+    return data;
+  } catch {
     return { data: {} };
   }
 };

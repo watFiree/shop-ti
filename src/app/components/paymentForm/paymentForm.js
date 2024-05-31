@@ -1,5 +1,6 @@
 "use client";
 import { formatPrice } from "@/app/lib/formatPrice";
+import { toast } from "react-toastify";
 import { RadioGroup, Radio } from "@nextui-org/radio";
 
 export const PaymentRadioForm = ({ basketId, paymentMethods }) => {
@@ -10,9 +11,12 @@ export const PaymentRadioForm = ({ basketId, paymentMethods }) => {
         body: JSON.stringify({ paymentMethodId: value }),
       });
 
-      await response.json();
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error);
+      }
     } catch (error) {
-      console.log("error");
+      toast.error(error.message);
     }
   };
   return (

@@ -16,16 +16,13 @@ export async function POST(req, { params }) {
       },
     });
 
-    console.log(updatedOrder);
-
     revalidatePath("/koszyk", "page");
     return Response.json({
       revalidated: true,
       now: Date.now(),
       data: updatedOrder,
     });
-  } catch (error) {
-    console.log(error);
-    return Response.error({ data: updatedOrder });
+  } catch {
+    return new Response(JSON.stringify({ error: "Bład serwera" }), 500);
   }
 }
