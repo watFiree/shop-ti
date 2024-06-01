@@ -12,7 +12,7 @@ export const PlaceOrderButton = ({ price, orderId }) => {
     const deliveryAddressString = sessionStorage.getItem("deliveryForm");
     const deliveryAddressData = JSON.parse(deliveryAddressString);
     if (Object.values(deliveryAddressData).some((value) => !value)) {
-      console.log("delivery form not full");
+      toast.error("Brakujące dane w formularzu");
       return;
     }
 
